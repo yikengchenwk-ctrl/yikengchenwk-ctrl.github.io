@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,367 +7,155 @@
     <script src="https://unpkg.zhimg.com/lucide@latest"></script>
     
     <style>
-        /* --- 核心基础设置 (替代 Tailwind) --- */
+        /* --- 这里是自带的样式，不依赖外部网站，绝对稳定 --- */
         :root {
-            --bg-color: #050505;
-            --text-main: #f4f4f5;
-            --text-muted: #a1a1aa;
-            --border-color: rgba(255,255,255,0.1);
+            --bg-color: #050505; /* 深黑色背景 */
+            --text-main: #f4f4f5; /* 亮白色文字 */
+            --text-muted: #a1a1aa; /* 灰色文字 */
         }
 
-        * { box-sizing: border-box; }
-        
+        /* 强制覆盖浏览器的默认白色背景 */
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: #050505 !important; 
+            color: #ffffff !important;
+            font-family: system-ui, -apple-system, sans-serif;
             margin: 0;
             padding: 0;
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
         a { text-decoration: none; color: inherit; transition: 0.3s; }
-        ul { list-style: none; padding: 0; margin: 0; }
 
-        /* --- 动画类 --- */
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .animate-fade-in { animation: fadeIn 1s ease-out forwards; opacity: 0; }
-        .animate-slide-up { animation: slideUp 0.8s ease-out forwards; opacity: 0; }
-
-        /* --- 导航栏 --- */
+        /* 导航栏 */
         nav {
-            position: fixed;
-            width: 100%;
-            z-index: 100;
-            padding: 24px;
-            transition: all 0.3s;
-            top: 0;
-        }
-        
-        nav.glass-nav {
-            background: rgba(5, 5, 5, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 16px 24px;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
+            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: rgba(5, 5, 5, 0.9);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: sticky;
+            top: 0;
         }
+        .logo { font-size: 1.2rem; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; }
+        .menu a { margin-left: 20px; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; }
+        .menu a:hover { color: #fff; }
 
-        .logo { font-size: 1.125rem; letter-spacing: 0.2em; text-transform: uppercase; color: #fff; }
-        
-        .desktop-menu { display: none; gap: 3rem; }
-        .desktop-menu a { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; color: #9ca3af; }
-        .desktop-menu a:hover { color: #fff; }
-        
-        @media (min-width: 768px) { .desktop-menu { display: flex; } .mobile-btn { display: none; } }
-
-        /* --- Hero 主屏 --- */
+        /* 主屏幕 */
         .hero {
-            min-height: 100vh;
+            min-height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 80px 20px 20px;
-            position: relative;
-            z-index: 10;
+            padding: 40px 20px;
         }
 
-        .hero h1 {
-            font-size: 2.5rem;
-            margin: 0 0 32px 0;
-            font-weight: 500;
-            color: #fff;
-        }
-        @media (min-width: 768px) { .hero h1 { font-size: 4.5rem; } }
-
-        .hero-desc {
-            max-width: 650px;
-            color: var(--text-muted);
-            font-size: 1.125rem;
-            margin-bottom: 40px;
-        }
-
-        .btn-group { display: flex; gap: 24px; justify-content: center; }
-        .btn {
-            padding: 12px 32px;
-            border: 1px solid #fff;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 0.1em;
-            cursor: pointer;
-        }
-        .btn-primary { background: transparent; color: #fff; }
-        .btn-primary:hover { background: #fff; color: #000; }
-        .btn-secondary { border-color: rgba(255,255,255,0.2); color: var(--text-muted); }
-        .btn-secondary:hover { border-color: #fff; color: #fff; }
-
-        /* --- 技能条特效 --- */
-        .skill-item-container {
-            position: relative;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            margin-bottom: 10px;
-        }
-        .skill-item-container:hover .skill-spectrum-bar { width: var(--skill-width); }
-        .skill-spectrum-bar {
-            position: absolute; bottom: -1px; left: 0; height: 2px; width: 0;
-            background: linear-gradient(90deg, #fff, #a1a1aa, transparent);
-            transition: width 0.6s ease;
-        }
-
-        /* --- 布局网格 --- */
-        .container { max-width: 1100px; mx-auto; padding: 0 20px; margin: 0 auto; }
-        .section { py-24; padding: 100px 20px; border-top: 1px solid rgba(255,255,255,0.05); position: relative; z-index: 10; background: #050505; }
+        .subtitle { color: var(--text-muted); letter-spacing: 3px; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 20px; }
         
-        .grid-2 { display: grid; grid-template-columns: 1fr; gap: 40px; }
-        @media (min-width: 768px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+        h1 { font-size: 3rem; margin: 0 0 20px 0; font-weight: normal; }
+        @media(max-width: 768px) { h1 { font-size: 2rem; } }
 
-        /* --- 体验卡片 --- */
-        .experience-card {
-            border-left: 2px solid transparent;
-            padding-left: 1rem;
-            margin-bottom: 2rem;
-            position: relative;
+        .desc { max-width: 600px; color: var(--text-muted); font-size: 1.1rem; margin-bottom: 40px; }
+        .desc strong { color: #fff; font-weight: normal; }
+
+        /* 按钮 */
+        .btn {
+            padding: 12px 30px;
+            border: 1px solid #fff;
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin: 10px;
+            display: inline-block;
         }
-        .experience-card::before {
-            content: ''; position: absolute; left: -3.35rem; top: 6px;
-            width: 10px; height: 10px; border-radius: 50%; background: #374151;
-            border: 4px solid #000;
+        .btn:hover { background: #fff; color: #000; }
+        .btn-secondary { border-color: #555; color: #aaa; }
+        .btn-secondary:hover { border-color: #fff; color: #fff; background: transparent; }
+
+        /* 版块通用 */
+        .section { padding: 60px 20px; border-top: 1px solid rgba(255,255,255,0.1); max-width: 800px; margin: 0 auto; }
+        h2 { font-size: 1.8rem; margin-bottom: 30px; }
+        
+        .job-card {
+            border-left: 2px solid #333;
+            padding-left: 20px;
+            margin-bottom: 30px;
         }
-        .experience-card:hover { border-left-color: #fff; background: rgba(255,255,255,0.02); }
+        .job-card:hover { border-left-color: #fff; }
+        .job-title { font-size: 1.2rem; color: #fff; }
+        .job-meta { font-size: 0.8rem; color: #666; text-transform: uppercase; margin-bottom: 10px; display: block; }
+        .job-desc { font-size: 0.95rem; color: #aaa; }
 
-        .timeline-line { border-left: 1px solid rgba(255,255,255,0.1); margin-left: 1rem; padding-left: 3rem; }
-
-        /* --- 星空背景 & 噪点 --- */
-        #starfield { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.3; pointer-events: none; }
-        .noise-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 50; opacity: 0.03;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
-        }
-
-        /* --- 社交图标 --- */
-        .social-grid { display: flex; gap: 20px; justify-content: center; }
-        .social-icon {
-            width: 48px; height: 48px; border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.1);
-            display: flex; align-items: center; justify-content: center;
-            color: #a1a1aa; transition: 0.3s;
-        }
-        .social-icon:hover { background: #fff; color: #000; transform: translateY(-3px); }
-
+        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: #444; border-top: 1px solid #222; margin-top: 40px; }
     </style>
 </head>
 <body>
 
-    <div class="noise-overlay"></div>
-    <canvas id="starfield"></canvas>
-
-    <nav id="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">Yikeng Chen</a>
-            <div class="desktop-menu">
-                <a href="#about">About</a>
-                <a href="#skills">Competencies</a>
-                <a href="#experience">Experience</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact">Contact</a>
-            </div>
-            <button class="mobile-btn" style="background:none; border:none; color:white;">
-                <i data-lucide="menu"></i>
-            </button>
+    <nav>
+        <a href="#" class="logo">Yikeng Chen</a>
+        <div class="menu">
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#contact">Contact</a>
         </div>
     </nav>
 
     <section class="hero">
-        <p style="font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase; color: #a1a1aa; margin-bottom: 20px;" class="animate-fade-in" style="animation-delay: 0.2s;">
-            Educator • Translator • Cross-Cultural Strategist
+        <p class="subtitle">Educator • Translator • Strategist</p>
+        <h1>Yikeng Chen</h1>
+        <p class="desc">
+            Specializing in <strong>IELTS/PTE Preparation</strong> and <strong>Localization</strong>.<br>
+            Bridging linguistic systems and human experience.
         </p>
-        
-        <h1 class="animate-slide-up" style="animation-delay: 0.4s;">Yikeng Chen</h1>
-        
-        <p class="hero-desc animate-slide-up" style="animation-delay: 0.6s;">
-            Specializing in <span style="color:#fff">Exam Preparation (PTE/IELTS)</span>, <span style="color:#fff">Localization</span>, and <span style="color:#fff">Content Strategy</span>.<br>
-            Bridging linguistic systems and human experience through precision and empathy.
-        </p>
-
-        <div class="btn-group animate-slide-up" style="animation-delay: 0.8s;">
-            <a href="#contact" class="btn btn-primary">Get in Touch</a>
-            <a href="#projects" class="btn btn-secondary">View Work</a>
+        <div>
+            <a href="#contact" class="btn">Get in Touch</a>
+            <a href="#experience" class="btn btn-secondary">View Work</a>
         </div>
     </section>
 
     <section id="about" class="section">
-        <div class="container grid-2">
-            <div>
-                <h2 style="font-size: 1.5rem; color: #fff; margin-bottom: 20px;">Professional Profile</h2>
-                <p style="color: #a1a1aa; margin-bottom: 20px;">
-                    With extensive experience in language teaching and cross-cultural communication, I excel in designing personalized teaching strategies. I focus on optimizing knowledge structures and innovating teaching methods using <span style="color:white">AI tools</span>.
-                </p>
-                <div style="margin-top: 40px;">
-                    <h3 style="font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: #fff; margin-bottom: 20px;">Education</h3>
-                    <div style="margin-bottom: 20px;">
-                        <p style="color: #fff; margin-bottom: 5px;">University of Edinburgh <span style="font-size:0.8em; color:#666;">2018-2019</span></p>
-                        <p style="color: #a1a1aa; font-size: 0.9em;">MSc in Social Anthropology</p>
-                    </div>
-                    <div>
-                        <p style="color: #fff; margin-bottom: 5px;">Guangdong University of Foreign Studies <span style="font-size:0.8em; color:#666;">2014-2018</span></p>
-                        <p style="color: #a1a1aa; font-size: 0.9em;">BA in English</p>
-                    </div>
-                </div>
-            </div>
-
-            <div style="background: rgba(255,255,255,0.03); padding: 30px; border: 1px solid rgba(255,255,255,0.1);">
-                <h3 style="color: #fff; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 30px;">Professional Competencies</h3>
-                
-                <div style="margin-bottom: 30px;">
-                    <span style="font-size: 0.75rem; color: #666; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 10px;">Languages</span>
-                    
-                    <div class="skill-item-container" style="--skill-width: 95%">
-                        <div style="display:flex; justify-content:space-between; color:#e5e5e5; font-size:0.9rem;">
-                            <span>English (IELTS 8.0)</span>
-                            <span style="font-family: monospace; font-size: 0.8rem;">Expert</span>
-                        </div>
-                        <div class="skill-spectrum-bar"></div>
-                    </div>
-
-                    <div class="skill-item-container" style="--skill-width: 100%">
-                        <div style="display:flex; justify-content:space-between; color:#e5e5e5; font-size:0.9rem;">
-                            <span>Mandarin & Teochew</span>
-                            <span style="font-family: monospace; font-size: 0.8rem;">Native</span>
-                        </div>
-                        <div class="skill-spectrum-bar"></div>
-                    </div>
-                </div>
-
-                <div>
-                    <span style="font-size: 0.75rem; color: #666; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 10px;">Tools</span>
-                    <div class="skill-item-container" style="--skill-width: 90%">
-                        <div style="display:flex; justify-content:space-between; color:#e5e5e5; font-size:0.9rem;">
-                            <span>CAT Tools (Trados/LILT)</span>
-                            <span style="font-family: monospace; font-size: 0.8rem;">Pro</span>
-                        </div>
-                        <div class="skill-spectrum-bar"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <h2>About</h2>
+        <p style="color: #aaa; font-size: 1.1rem;">
+            With extensive experience in language teaching and cross-cultural communication, I excel in designing personalized teaching strategies. My background in <strong>Social Anthropology</strong> allows me to understand students beyond just language.
+        </p>
     </section>
 
     <section id="experience" class="section">
-        <div class="container" style="max-width: 800px;">
-            <h2 style="text-align: center; color: #fff; font-size: 2rem; margin-bottom: 50px;">Professional Experience</h2>
-            
-            <div class="timeline-line">
-                <div class="experience-card">
-                    <h3 style="color: #fff; font-size: 1.2rem;">English Reading Teacher</h3>
-                    <p style="color: #666; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;">Shenzhen Weixueyi • Mar 2023 - Present</p>
-                    <ul style="color: #a1a1aa; font-size: 0.95rem; padding-left: 20px; list-style: disc;">
-                        <li>Delivered specialized instruction for PTE, IELTS, and DSE.</li>
-                        <li>Leveraged Generative AI Tools to innovate teaching methods.</li>
-                    </ul>
-                </div>
+        <h2>Experience</h2>
+        
+        <div class="job-card">
+            <div class="job-title">English Reading Teacher</div>
+            <span class="job-meta">Shenzhen Weixueyi • Mar 2023 - Present</span>
+            <div class="job-desc">
+                Delivered specialized instruction for PTE, IELTS, and DSE. Leveraged AI tools to innovate teaching methods.
+            </div>
+        </div>
 
-                <div class="experience-card">
-                    <h3 style="color: #fff; font-size: 1.2rem;">Freelance Academic Consultant</h3>
-                    <p style="color: #666; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;">Aug 2022 — Feb 2023</p>
-                    <ul style="color: #a1a1aa; font-size: 0.95rem; padding-left: 20px; list-style: disc;">
-                        <li>Provided strategic Academic Counseling for university applications.</li>
-                    </ul>
-                </div>
+        <div class="job-card">
+            <div class="job-title">Freelance Academic Consultant</div>
+            <span class="job-meta">Aug 2022 — Feb 2023</span>
+            <div class="job-desc">
+                Provided strategic Academic Counseling for university applications with a 90% admission success rate.
             </div>
         </div>
     </section>
 
     <section id="contact" class="section" style="text-align: center;">
-        <h2 style="color: #fff; font-size: 2rem; margin-bottom: 20px;">Contact Information</h2>
-        <div style="border: 1px solid rgba(255,255,255,0.1); padding: 40px; display: inline-block; background: rgba(255,255,255,0.03);">
-            <p style="color: #fff; font-size: 1.1rem; margin-bottom: 10px;">+86 135 1035 7398</p>
-            <p style="color: #a1a1aa; margin-bottom: 30px;">13510357398@163.com</p>
-            
-            <div class="social-grid">
-                <a href="#" class="social-icon" onclick="alert('WeChat ID: 13510357398')"><i data-lucide="message-circle"></i></a>
-                <a href="#" class="social-icon"><i data-lucide="mail"></i></a>
-            </div>
-        </div>
+        <h2>Contact</h2>
+        <p style="font-size: 1.2rem; color: #fff;">+86 135 1035 7398</p>
+        <p style="color: #aaa; margin-bottom: 30px;">13510357398@163.com</p>
+        <a href="mailto:13510357398@163.com" class="btn">Email Me</a>
     </section>
 
-    <footer style="text-align: center; padding: 40px; color: #444; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.2em;">
+    <footer>
         © 2025 Yikeng Chen. All Rights Reserved.
     </footer>
 
     <script>
-        // 初始化图标
         lucide.createIcons();
-
-        // 导航栏滚动特效
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('glass-nav');
-            } else {
-                navbar.classList.remove('glass-nav');
-            }
-        });
-
-        // 星空背景动画 (原版保留)
-        const canvas = document.getElementById('starfield');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        let particles = [];
-
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.15;
-                this.vy = (Math.random() - 0.5) * 0.15;
-                this.size = Math.random() * 1.2;
-                this.opacity = Math.random() * 0.5 + 0.1;
-            }
-            update() {
-                this.x += this.vx; this.y += this.vy;
-                if (this.x < 0) this.x = width; if (this.x > width) this.x = 0;
-                if (this.y < 0) this.y = height; if (this.y > height) this.y = 0;
-            }
-            draw() {
-                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            particles = [];
-            for (let i = 0; i < 100; i++) particles.push(new Particle());
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, width, height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animateParticles);
-        }
-
-        window.addEventListener('resize', resize);
-        resize();
-        initParticles();
-        animateParticles();
     </script>
 </body>
 </html>
-
