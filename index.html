@@ -1,161 +1,689 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Yikeng Chen - Educator & Localization Specialist Portfolio">
     <title>Yikeng Chen | Educator & Localization Specialist</title>
-    <script src="https://unpkg.zhimg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@200;300;400;500;600&family=Noto+Serif+SC:wght@300;500;700&display=swap" rel="stylesheet">
     
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Noto Serif SC', 'serif'],
+                        display: ['Cinzel', 'serif'],
+                    },
+                    colors: {
+                        'void-black': '#050505',
+                        'starlight': '#f4f4f5',
+                        'mist-gray': '#a1a1aa',
+                        'subtle-gray': '#525252',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* --- 这里是自带的样式，不依赖外部网站，绝对稳定 --- */
-        :root {
-            --bg-color: #050505; /* 深黑色背景 */
-            --text-main: #f4f4f5; /* 亮白色文字 */
-            --text-muted: #a1a1aa; /* 灰色文字 */
-        }
-
-        /* 强制覆盖浏览器的默认白色背景 */
-        body {
-            background-color: #050505 !important; 
-            color: #ffffff !important;
-            font-family: system-ui, -apple-system, sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
-
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
-
-        /* 导航栏 */
-        nav {
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(5, 5, 5, 0.9);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            position: sticky;
-            top: 0;
-        }
-        .logo { font-size: 1.2rem; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; }
-        .menu a { margin-left: 20px; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; }
-        .menu a:hover { color: #fff; }
-
-        /* 主屏幕 */
-        .hero {
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        .subtitle { color: var(--text-muted); letter-spacing: 3px; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 20px; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
         
-        h1 { font-size: 3rem; margin: 0 0 20px 0; font-weight: normal; }
-        @media(max-width: 768px) { h1 { font-size: 2rem; } }
+        body { background-color: #050505; color: #f4f4f5; }
 
-        .desc { max-width: 600px; color: var(--text-muted); font-size: 1.1rem; margin-bottom: 40px; }
-        .desc strong { color: #fff; font-weight: normal; }
+        .glass-nav {
+            background: rgba(5, 5, 5, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
 
-        /* 按钮 */
-        .btn {
-            padding: 12px 30px;
-            border: 1px solid #fff;
-            color: #fff;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            margin: 10px;
+        .noise-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 50; opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+        }
+
+        /* HR Highlight Animation */
+        .hr-highlight {
+            position: relative;
+            cursor: pointer;
+            color: #e5e5e5;
+            border-bottom: 1px dashed rgba(255,255,255,0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-block;
         }
-        .btn:hover { background: #fff; color: #000; }
-        .btn-secondary { border-color: #555; color: #aaa; }
-        .btn-secondary:hover { border-color: #fff; color: #fff; background: transparent; }
-
-        /* 版块通用 */
-        .section { padding: 60px 20px; border-top: 1px solid rgba(255,255,255,0.1); max-width: 800px; margin: 0 auto; }
-        h2 { font-size: 1.8rem; margin-bottom: 30px; }
         
-        .job-card {
-            border-left: 2px solid #333;
-            padding-left: 20px;
-            margin-bottom: 30px;
+        .hr-highlight:hover {
+            color: #000;
+            background: #fff;
+            border-bottom: 1px solid #fff;
+            transform: scale(1.05);
+            padding: 0 6px;
+            margin: 0 -2px;
+            border-radius: 4px;
+            box-shadow: 0 0 15px rgba(255,255,255,0.8);
+            font-weight: 600;
         }
-        .job-card:hover { border-left-color: #fff; }
-        .job-title { font-size: 1.2rem; color: #fff; }
-        .job-meta { font-size: 0.8rem; color: #666; text-transform: uppercase; margin-bottom: 10px; display: block; }
-        .job-desc { font-size: 0.95rem; color: #aaa; }
 
-        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: #444; border-top: 1px solid #222; margin-top: 40px; }
+        /* Skill Spectrum Animation */
+        .skill-item-container {
+            position: relative;
+            padding: 12px 0;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: border-color 0.3s ease;
+        }
+
+        .skill-item-container:hover {
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .skill-level-text {
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .skill-item-container:hover .skill-level-text {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .skill-spectrum-bar {
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            height: 2px;
+            width: 0%; 
+            background: linear-gradient(90deg, #fff, #a1a1aa, transparent);
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+            transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            z-index: 10;
+        }
+
+        .skill-item-container:hover .skill-spectrum-bar {
+            width: var(--skill-width, 100%); 
+        }
+
+        /* Experience Card */
+        .experience-card {
+            transition: all 0.4s ease;
+            border-left: 2px solid transparent;
+            padding-left: 1rem;
+            margin-left: -1rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .experience-card:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 2px solid #fff;
+            transform: translateX(5px);
+        }
+
+        /* Social Icon Hover */
+        .social-icon-link {
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.02);
+            color: #a1a1aa;
+            margin: 0 8px;
+        }
+
+        .social-icon-link:hover {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px rgba(255,255,255,0.6);
+        }
+        
+        .social-label {
+            position: absolute;
+            bottom: -24px;
+            font-size: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #a1a1aa;
+        }
+
+        .social-icon-link:hover .social-label {
+            opacity: 1;
+        }
     </style>
 </head>
-<body>
+<body class="antialiased selection:bg-white selection:text-black">
 
-    <nav>
-        <a href="#" class="logo">Yikeng Chen</a>
-        <div class="menu">
-            <a href="#about">About</a>
-            <a href="#experience">Experience</a>
-            <a href="#contact">Contact</a>
+    <div class="noise-overlay"></div>
+    <canvas id="starfield" class="fixed inset-0 z-0 opacity-30"></canvas>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-40 transition-all duration-300 px-6 py-6" id="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#" class="text-lg font-light tracking-[0.2em] uppercase hover:text-mist-gray transition-colors font-display">
+                Yikeng Chen
+            </a>
+            
+            <div class="hidden md:flex space-x-12">
+                <a href="#about" class="text-xs uppercase tracking-[0.15em] text-gray-400 hover:text-white transition-colors">About</a>
+                <a href="#skills" class="text-xs uppercase tracking-[0.15em] text-gray-400 hover:text-white transition-colors">Competencies</a>
+                <a href="#experience" class="text-xs uppercase tracking-[0.15em] text-gray-400 hover:text-white transition-colors">Experience</a>
+                <a href="#projects" class="text-xs uppercase tracking-[0.15em] text-gray-400 hover:text-white transition-colors">Projects</a>
+                <a href="#contact" class="text-xs uppercase tracking-[0.15em] text-gray-400 hover:text-white transition-colors">Contact</a>
+            </div>
+
+            <button class="md:hidden text-white" onclick="toggleMobileMenu()">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
         </div>
     </nav>
 
-    <section class="hero">
-        <p class="subtitle">Educator • Translator • Strategist</p>
-        <h1>Yikeng Chen</h1>
-        <p class="desc">
-            Specializing in <strong>IELTS/PTE Preparation</strong> and <strong>Localization</strong>.<br>
-            Bridging linguistic systems and human experience.
-        </p>
-        <div>
-            <a href="#contact" class="btn">Get in Touch</a>
-            <a href="#experience" class="btn btn-secondary">View Work</a>
-        </div>
-    </section>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-void-black z-50 hidden flex-col justify-center items-center space-y-8 opacity-0 transition-opacity duration-300">
+        <button class="absolute top-6 right-6 p-2 text-white" onclick="toggleMobileMenu()">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <a href="#about" onclick="toggleMobileMenu()" class="text-xl font-light uppercase tracking-widest font-display">About</a>
+        <a href="#skills" onclick="toggleMobileMenu()" class="text-xl font-light uppercase tracking-widest font-display">Competencies</a>
+        <a href="#experience" onclick="toggleMobileMenu()" class="text-xl font-light uppercase tracking-widest font-display">Experience</a>
+        <a href="#projects" onclick="toggleMobileMenu()" class="text-xl font-light uppercase tracking-widest font-display">Projects</a>
+        <a href="#contact" onclick="toggleMobileMenu()" class="text-xl font-light uppercase tracking-widest font-display">Contact</a>
+    </div>
 
-    <section id="about" class="section">
-        <h2>About</h2>
-        <p style="color: #aaa; font-size: 1.1rem;">
-            With extensive experience in language teaching and cross-cultural communication, I excel in designing personalized teaching strategies. My background in <strong>Social Anthropology</strong> allows me to understand students beyond just language.
-        </p>
-    </section>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col justify-center items-center px-6 relative z-10 text-center pt-20">
+        <div class="max-w-4xl mx-auto">
+            <p class="text-xs md:text-sm uppercase tracking-[0.3em] text-mist-gray mb-6 animate-fade-in opacity-0" style="animation-delay: 0.2s;">
+                Educator • Translator • Cross-Cultural Strategist
+            </p>
+            
+            <h1 class="text-4xl md:text-7xl font-medium leading-tight mb-8 animate-slide-up opacity-0 font-display" style="animation-delay: 0.4s;">
+                Yikeng Chen
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-mist-gray font-light text-base md:text-lg leading-relaxed animate-slide-up opacity-0 mb-10" style="animation-delay: 0.6s;">
+                Specializing in <span class="text-white font-normal">Exam Preparation (PTE/IELTS)</span>, <span class="text-white font-normal">Localization</span>, and <span class="text-white font-normal">Content Strategy</span>. 
+                <br>Bridging linguistic systems and human experience through precision and empathy.
+            </p>
 
-    <section id="experience" class="section">
-        <h2>Experience</h2>
-        
-        <div class="job-card">
-            <div class="job-title">English Reading Teacher</div>
-            <span class="job-meta">Shenzhen Weixueyi • Mar 2023 - Present</span>
-            <div class="job-desc">
-                Delivered specialized instruction for PTE, IELTS, and DSE. Leveraged AI tools to innovate teaching methods.
+            <div class="flex flex-col md:flex-row gap-6 justify-center animate-slide-up opacity-0" style="animation-delay: 0.8s;">
+                <a href="#contact" class="px-8 py-3 border border-white text-xs uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300">
+                    Get in Touch
+                </a>
+                <a href="#projects" class="px-8 py-3 border border-white/20 text-xs uppercase tracking-widest hover:border-white transition-all duration-300 text-mist-gray hover:text-white">
+                    View Work
+                </a>
+            </div>
+            
+            <div class="mt-16 opacity-0 animate-fade-in" style="animation-delay: 1.2s;">
+                 <p class="text-[10px] uppercase tracking-widest text-subtle-gray">Philosophy</p>
+                 <p class="text-sm font-serif italic text-gray-400 mt-2">"Language is not just a tool for communication, but a lens for understanding oneself and the world."</p>
             </div>
         </div>
+    </section>
 
-        <div class="job-card">
-            <div class="job-title">Freelance Academic Consultant</div>
-            <span class="job-meta">Aug 2022 — Feb 2023</span>
-            <div class="job-desc">
-                Provided strategic Academic Counseling for university applications with a 90% admission success rate.
+    <!-- About & Education -->
+    <section id="about" class="py-24 px-6 bg-void-black z-10 relative border-t border-white/5">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+            <div class="space-y-6">
+                <h2 class="text-2xl font-display text-white mb-6">Professional Profile</h2>
+                <p class="text-mist-gray font-light leading-relaxed">
+                    With extensive experience in language teaching and cross-cultural communication, I excel in designing personalized teaching strategies. I focus on optimizing knowledge structures and innovating teaching methods using <span class="text-white font-medium">AI tools</span>.
+                </p>
+                <p class="text-mist-gray font-light leading-relaxed">
+                    My background in <strong>Social Anthropology</strong> allows me to understand students and audiences beyond just language, addressing the emotional and cultural context of communication.
+                </p>
+                
+                <div class="pt-6">
+                    <h3 class="text-sm uppercase tracking-widest text-white mb-4">Education</h3>
+                    <div class="space-y-6">
+                        <div class="group">
+                            <p class="text-white font-serif group-hover:text-gray-300 transition-colors">University of Edinburgh <span class="text-xs text-gray-500 ml-2 font-sans">2018-2019</span></p>
+                            <p class="text-sm text-mist-gray">MSc in Social Anthropology</p>
+                        </div>
+                        <div class="group">
+                            <p class="text-white font-serif group-hover:text-gray-300 transition-colors">Columbia University <span class="text-xs text-gray-500 ml-2 font-sans">Sep 2016 - Jan 2017</span></p>
+                            <p class="text-sm text-mist-gray">Visiting Student (Exchange Program)</p>
+                        </div>
+                        <div class="group">
+                            <p class="text-white font-serif group-hover:text-gray-300 transition-colors">Guangdong University of Foreign Studies <span class="text-xs text-gray-500 ml-2 font-sans">2014-2018</span></p>
+                            <p class="text-sm text-mist-gray">BA in English (Culture & Communication)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Professional Competencies -->
+            <div id="skills" class="bg-white/5 p-8 border border-white/10 backdrop-blur-sm relative overflow-hidden group/container hover:border-white/20 transition-colors duration-500">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-purple-900/10 blur-[80px] rounded-full pointer-events-none"></div>
+                
+                <h3 class="text-sm uppercase tracking-widest text-white mb-10 flex items-center gap-2">
+                    <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+                    Professional Competencies
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-2">
+                    
+                    <!-- Language Column -->
+                    <div class="space-y-2">
+                        <span class="text-xs text-gray-500 uppercase tracking-widest mb-4 block">Languages</span>
+                        
+                        <div class="skill-item-container" style="--skill-width: 95%">
+                            <div class="flex justify-between items-center relative z-20">
+                                <span class="text-sm text-gray-200">English (IELTS 8.0)</span>
+                                <span class="text-xs text-white font-mono skill-level-text">Near Native / Expert</span>
+                            </div>
+                            <div class="skill-spectrum-bar"></div>
+                        </div>
+
+                        <div class="skill-item-container" style="--skill-width: 100%">
+                            <div class="flex justify-between items-center relative z-20">
+                                <span class="text-sm text-gray-200">Mandarin & Teochew</span>
+                                <span class="text-xs text-white font-mono skill-level-text">Native</span>
+                            </div>
+                            <div class="skill-spectrum-bar"></div>
+                        </div>
+
+                        <div class="skill-item-container" style="--skill-width: 40%">
+                            <div class="flex justify-between items-center relative z-20">
+                                <span class="text-sm text-gray-200">Spanish</span>
+                                <span class="text-xs text-white font-mono skill-level-text">Conversational</span>
+                            </div>
+                            <div class="skill-spectrum-bar"></div>
+                        </div>
+                    </div>
+
+                    <!-- Tools Column -->
+                    <div class="space-y-2 mt-8 md:mt-0">
+                        <span class="text-xs text-gray-500 uppercase tracking-widest mb-4 block">Tools & Tech</span>
+                        
+                        <div class="skill-item-container" style="--skill-width: 90%">
+                            <div class="flex justify-between items-center relative z-20">
+                                <span class="text-sm text-gray-200">Localization (CAT Tools)</span>
+                                <span class="text-xs text-white font-mono skill-level-text">Trados / XTM / LILT</span>
+                            </div>
+                            <div class="skill-spectrum-bar"></div>
+                        </div>
+
+                        <div class="skill-item-container" style="--skill-width: 85%">
+                            <div class="flex justify-between items-center relative z-20">
+                                <span class="text-sm text-gray-200">CMS & Ops</span>
+                                <span class="text-xs text-white font-mono skill-level-text">AEM / Salesforce</span>
+                            </div>
+                            <div class="skill-spectrum-bar"></div>
+                        </div>
+
+                        <div class="skill-item-container" style="--skill-width: 95%">
+                            <div class="flex justify-between items-center relative z-20">
+                                <span class="text-sm text-gray-200">Generative AI</span>
+                                <span class="text-xs text-white font-mono skill-level-text">Prompt Engineering</span>
+                            </div>
+                            <div class="skill-spectrum-bar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pedagogy Tags -->
+                <div class="mt-10 pt-6 border-t border-white/5">
+                     <span class="text-xs text-gray-500 uppercase tracking-widest mb-4 block">Specialized Pedagogy</span>
+                     <div class="flex flex-wrap gap-3 text-xs">
+                        <span class="px-3 py-1.5 border border-white/10 text-gray-300 hover:bg-white hover:text-black transition-all cursor-default">IELTS Reading</span>
+                        <span class="px-3 py-1.5 border border-white/10 text-gray-300 hover:bg-white hover:text-black transition-all cursor-default">PTE Academic</span>
+                        <span class="px-3 py-1.5 border border-white/10 text-gray-300 hover:bg-white hover:text-black transition-all cursor-default">HKDSE Curriculum</span>
+                        <span class="px-3 py-1.5 border border-white/10 text-gray-300 hover:bg-white hover:text-black transition-all cursor-default">Personalized Learning</span>
+                     </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="section" style="text-align: center;">
-        <h2>Contact</h2>
-        <p style="font-size: 1.2rem; color: #fff;">+86 135 1035 7398</p>
-        <p style="color: #aaa; margin-bottom: 30px;">13510357398@163.com</p>
-        <a href="mailto:13510357398@163.com" class="btn">Email Me</a>
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 px-6 bg-void-black z-10 relative">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-display text-white mb-12 text-center">Professional Experience</h2>
+
+            <div class="space-y-8 border-l border-white/10 ml-3 pl-8 md:pl-12 relative">
+                
+                <!-- Role 1: Weixueyi -->
+                <div class="relative experience-card">
+                    <span class="absolute -left-[3.25rem] md:-left-[3.4rem] top-1.5 h-3 w-3 rounded-full bg-white ring-4 ring-black shadow-[0_0_10px_rgba(255,255,255,0.5)]"></span>
+                    <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-2">
+                        <h3 class="text-xl font-serif text-white">English Reading Teacher</h3>
+                        <span class="text-xs font-mono text-gray-500">Mar 2023 — Present</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-4 uppercase tracking-widest">Shenzhen Weixueyi International Education</p>
+                    <ul class="list-disc list-outside ml-4 text-sm text-mist-gray space-y-3 marker:text-gray-600 leading-relaxed">
+                        <li>Delivered specialized instruction for international curriculums including <span class="hr-highlight">PTE</span>, <span class="hr-highlight">IELTS</span>, and <span class="hr-highlight">DSE</span>.</li>
+                        <li>Leveraged <span class="hr-highlight">Generative AI Tools</span> (ChatGPT, Deepseek) to innovate teaching methods and enhance student analytical efficiency.</li>
+                        <li>Contributed to <span class="hr-highlight">Curriculum Design</span> and textbook revision for the DSE program.</li>
+                        <li><strong>Impact:</strong> Guided students to top-tier schools; improved average IELTS reading scores by <span class="text-white font-bold">1.5 bands</span>.</li>
+                    </ul>
+                </div>
+
+                <!-- Role 2: Freelance -->
+                <div class="relative experience-card">
+                    <span class="absolute -left-[3.25rem] md:-left-[3.4rem] top-1.5 h-3 w-3 rounded-full bg-gray-700 ring-4 ring-black"></span>
+                    <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-2">
+                        <h3 class="text-xl font-serif text-white">Freelance Academic Consultant</h3>
+                        <span class="text-xs font-mono text-gray-500">Aug 2022 — Feb 2023</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-4 uppercase tracking-widest">Education Consulting</p>
+                    <ul class="list-disc list-outside ml-4 text-sm text-mist-gray space-y-3 marker:text-gray-600 leading-relaxed">
+                        <li>Provided strategic <span class="hr-highlight">Academic Counseling</span> for university applications.</li>
+                        <li>Guided students in crafting authentic personal narratives, resulting in a <span class="hr-highlight">90% Admission Success Rate</span> for managed cases.</li>
+                    </ul>
+                </div>
+
+                <!-- Role 3: Xmind -->
+                <div class="relative experience-card">
+                    <span class="absolute -left-[3.25rem] md:-left-[3.4rem] top-1.5 h-3 w-3 rounded-full bg-gray-700 ring-4 ring-black"></span>
+                    <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-2">
+                        <h3 class="text-xl font-serif text-white">Overseas Operations Assistant</h3>
+                        <span class="text-xs font-mono text-gray-500">May 2022 — Aug 2022</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-4 uppercase tracking-widest">Xmind Ltd.</p>
+                    <ul class="list-disc list-outside ml-4 text-sm text-mist-gray space-y-3 marker:text-gray-600 leading-relaxed">
+                        <li>Conducted <span class="hr-highlight">User Data Analysis</span> to identify educational trends in global markets.</li>
+                        <li>Managed <span class="hr-highlight">CRM Campaigns</span> and localized English web content to optimize user engagement.</li>
+                    </ul>
+                </div>
+                
+                <!-- Role 4: Kunxin -->
+                 <div class="relative experience-card">
+                    <span class="absolute -left-[3.25rem] md:-left-[3.4rem] top-1.5 h-3 w-3 rounded-full bg-gray-700 ring-4 ring-black"></span>
+                    <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-2">
+                        <h3 class="text-xl font-serif text-white">Content Editor (Localization)</h3>
+                        <span class="text-xs font-mono text-gray-500">Apr 2020 — Feb 2022</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-4 uppercase tracking-widest">Kunxin Translation</p>
+                    <ul class="list-disc list-outside ml-4 text-sm text-mist-gray space-y-3 marker:text-gray-600 leading-relaxed">
+                        <li>Executed end-to-end <span class="hr-highlight">Localization Projects</span> for legal and corporate sectors.</li>
+                        <li>Proficiently utilized <span class="hr-highlight">Adobe AEM</span>, <span class="hr-highlight">Salesforce</span>, and <span class="hr-highlight">CAT Tools (Trados/LILT)</span> to ensure workflow efficiency.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <footer>
-        © 2025 Yikeng Chen. All Rights Reserved.
+    <!-- Projects & Video Section -->
+    <section id="projects" class="py-24 px-6 bg-void-black z-10 relative border-t border-white/5">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-display text-white mb-16 text-center">Selected Works</h2>
+            
+            <div class="space-y-24">
+                
+                 <!-- Project 1: Video Project -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center group">
+                    <div class="md:col-span-7 relative aspect-video bg-black rounded-sm overflow-hidden border border-white/10">
+                         <!-- Placeholder Video Cover -->
+                        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1200&auto=format&fit=crop" alt="Visual Narrative" class="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-700">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-16 h-16 rounded-full bg-white/5 backdrop-blur-sm border border-white/20 flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
+                                <i data-lucide="play" class="w-6 h-6 text-white ml-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="md:col-span-5 md:pl-8">
+                        <span class="text-[10px] text-gray-500 uppercase tracking-[0.2em] mb-2 block">Visual Narrative</span>
+                        <h3 class="text-2xl font-serif text-white mb-4 group-hover:text-gray-300 transition-colors">Digital Stories & Human Connection</h3>
+                        <p class="text-sm text-mist-gray leading-relaxed mb-6">
+                            A video essay exploring the intersection of language, culture, and digital identity. Combining motion graphics with narrative storytelling.
+                        </p>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 border border-white/10 text-[10px] text-gray-500">Direction</span>
+                            <span class="px-3 py-1 border border-white/10 text-[10px] text-gray-500">Editing</span>
+                            <span class="px-3 py-1 border border-white/10 text-[10px] text-gray-500">Storytelling</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: DK Book -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center group">
+                    <div class="md:col-span-7 md:order-2 relative aspect-[2/1] bg-black rounded-sm overflow-hidden border border-white/10">
+                        <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=1200&auto=format&fit=crop" alt="DK Food" class="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700">
+                    </div>
+                    
+                    <div class="md:col-span-5 md:order-1 md:pr-8 text-right md:text-left">
+                        <span class="text-[10px] text-gray-500 uppercase tracking-[0.2em] mb-2 block">Publishing</span>
+                        <h3 class="text-2xl font-serif text-white mb-4 group-hover:text-gray-300 transition-colors">DK: The Story of Food</h3>
+                        <p class="text-sm text-mist-gray leading-relaxed mb-6">
+                            Led the English-to-Chinese translation of this encyclopedic work. Standardized terminology across the team and balanced linguistic precision with narrative accessibility.
+                        </p>
+                        <p class="text-xs text-white mb-4">Result: Successfully published in Nov 2021.</p>
+                        <div class="flex gap-2 justify-end md:justify-start">
+                            <span class="px-3 py-1 border border-white/10 text-[10px] text-gray-500">Translation</span>
+                            <span class="px-3 py-1 border border-white/10 text-[10px] text-gray-500">Localization</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: DSE Curriculum -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center group">
+                    <div class="md:col-span-7 relative aspect-[2/1] bg-black rounded-sm overflow-hidden border border-white/10">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200&auto=format&fit=crop" alt="Curriculum Design" class="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700">
+                    </div>
+                    
+                    <div class="md:col-span-5 md:pl-8">
+                        <span class="text-[10px] text-gray-500 uppercase tracking-[0.2em] mb-2 block">Curriculum Design</span>
+                        <h3 class="text-2xl font-serif text-white mb-4 group-hover:text-gray-300 transition-colors">DSE & AI Integration</h3>
+                        <p class="text-sm text-mist-gray leading-relaxed mb-6">
+                            Participated in the editing and revision of HKDSE English reading materials. Optimized logic question strategies and integrated AI-assisted learning modules.
+                        </p>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 border border-white/10 text-[10px] text-gray-500">Pedagogy</span>
+                            <span class="px-3 py-1 border border-white/10 text-[10px] text-gray-500">AI Tools</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-20">
+                <button class="group relative px-8 py-3 text-xs uppercase tracking-widest text-white border border-white/20 hover:border-white transition-all duration-300 overflow-hidden">
+                    <span class="relative z-10 flex items-center gap-2">
+                        Load More Projects
+                        <i data-lucide="arrow-down" class="w-4 h-4 group-hover:translate-y-1 transition-transform"></i>
+                    </span>
+                    <div class="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 -z-0 group-hover:bg-white/10"></div>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 px-6 bg-void-black relative z-10 border-t border-white/5">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-display text-white mb-8">Contact Information</h2>
+            <p class="text-mist-gray font-light mb-12">
+                Available for opportunities in Education, Localization, and Content Strategy.
+            </p>
+
+            <!-- Direct Contact Grid (UPDATED LAYOUT) -->
+            <div class="border border-white/10 p-8 backdrop-blur-sm max-w-2xl mx-auto mb-16 bg-white/5">
+                <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12">
+                    
+                    <!-- Phone Block -->
+                    <div class="flex flex-col items-center group">
+                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center mb-3 group-hover:bg-white/10 transition-colors">
+                            <i data-lucide="phone" class="w-5 h-5 text-white opacity-80"></i>
+                        </div>
+                        <span class="text-xs uppercase tracking-widest text-gray-500 mb-1">Mobile</span>
+                        <p class="text-sm text-white font-medium hover:text-gray-300 transition-colors">+86 135 1035 7398</p>
+                    </div>
+
+                    <!-- Divider (Hidden on mobile) -->
+                    <div class="hidden md:block w-px h-12 bg-white/10"></div>
+
+                    <!-- Email Block -->
+                    <a href="mailto:13510357398@163.com" class="flex flex-col items-center group">
+                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center mb-3 group-hover:bg-white/10 transition-colors">
+                            <i data-lucide="mail" class="w-5 h-5 text-white opacity-80 group-hover:text-white transition-colors"></i>
+                        </div>
+                        <span class="text-xs uppercase tracking-widest text-gray-500 mb-1">Email</span>
+                        <p class="text-sm text-white font-medium group-hover:text-gray-300 transition-colors">13510357398@163.com</p>
+                    </a>
+
+                    <!-- Divider (Hidden on mobile) -->
+                    <div class="hidden md:block w-px h-12 bg-white/10"></div>
+
+                    <!-- Location Block -->
+                    <div class="flex flex-col items-center group">
+                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center mb-3 group-hover:bg-white/10 transition-colors">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-white opacity-80"></i>
+                        </div>
+                        <span class="text-xs uppercase tracking-widest text-gray-500 mb-1">Base</span>
+                        <p class="text-sm text-white font-medium">Shenzhen, CN</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Socials -->
+            <div class="opacity-100">
+                 <p class="text-xs text-gray-500 uppercase tracking-widest mb-6">Connect on Socials</p>
+                 <div class="flex justify-center gap-6">
+                     <!-- Wechat -->
+                     <a href="javascript:void(0)" class="social-icon-link group" onclick="alert('WeChat ID: 13510357398')">
+                         <span class="social-label">WeChat</span>
+                        <i data-lucide="message-circle" class="w-5 h-5"></i>
+                     </a>
+                     
+                     <!-- Xiaohongshu -->
+                     <a href="https://www.xiaohongshu.com/" target="_blank" class="social-icon-link group">
+                        <span class="social-label">Xiaohongshu</span>
+                        <i data-lucide="book-open" class="w-5 h-5"></i>
+                     </a>
+                     
+                     <!-- Bilibili -->
+                     <a href="https://www.bilibili.com/" target="_blank" class="social-icon-link group">
+                        <span class="social-label">Bilibili</span>
+                        <i data-lucide="tv" class="w-5 h-5"></i>
+                     </a>
+                 </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <footer class="py-8 px-6 bg-black border-t border-white/5 text-center">
+        <p class="text-[10px] uppercase tracking-[0.2em] text-gray-600">
+            © 2025 Yikeng Chen. All Rights Reserved.
+        </p>
     </footer>
 
     <script>
         lucide.createIcons();
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('glass-nav');
+                navbar.classList.remove('py-6');
+                navbar.classList.add('py-4');
+            } else {
+                navbar.classList.remove('glass-nav');
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-6');
+            }
+        });
+
+        // Mobile Menu Logic
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const isOpen = !menu.classList.contains('hidden');
+            if (isOpen) {
+                menu.classList.remove('opacity-100');
+                menu.classList.add('opacity-0');
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                    menu.classList.remove('flex');
+                }, 300);
+            } else {
+                menu.classList.remove('hidden');
+                menu.classList.add('flex');
+                void menu.offsetWidth;
+                menu.classList.remove('opacity-0');
+                menu.classList.add('opacity-100');
+            }
+        }
+
+        // Background Starfield Animation
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.15;
+                this.vy = (Math.random() - 0.5) * 0.15;
+                this.size = Math.random() * 1.2;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if (this.x < 0) this.x = width; if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height; if (this.y > height) this.y = 0;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 100; i++) particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateParticles);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        initParticles();
+        animateParticles();
     </script>
 </body>
 </html>
